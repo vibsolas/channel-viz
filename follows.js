@@ -99,15 +99,15 @@
 				//$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value);
 
 				// Include Datastream Unit (If Available)
-				if(datastream.unit) {
-					if(datastream.unit.symbol) {
-						$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value + datastream.unit.symbol);
-					} else {
-						$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value);
-					}
-				} else {
-					$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value);
-				}
+				//if(datastream.unit) {
+				//	if(datastream.unit.symbol) {
+				//		$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value + datastream.unit.symbol);
+				//	} else {
+				//		$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value);
+				//	}
+				//} else {
+				//	$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value);
+				//}
 				$('.datastream-' + dataStreamId).removeClass('hidden');
 
 				
