@@ -78,8 +78,11 @@
 					});
 				}
 				var allSeries = [];
+				var lastDatastream;
 				
 				feedData.datastreams.forEach(function(datastream) {
+					lastDatastream = datastream;
+					
 					var now = new Date();
 					var then = new Date();
 					var updated = new Date;
@@ -155,16 +158,16 @@
 				});
 				
 				// Initialize Graph DOM Element
-				$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .graph').attr('id', 'graph-' + feedId + '-' + datastream.id);
+				$('#feed-' + feedId + ' .datastreams .datastream-' + lastDatastream.id + ' .graph').attr('id', 'graph-' + feedId + '-' + lastDatastream.id);
 
 	 			// Build Graph
 				var graph = new Rickshaw.Graph( {
-					element: document.querySelector('#graph-' + feedId + '-' + datastream.id),
+					element: document.querySelector('#graph-' + feedId + '-' + lastDatastream.id),
 					width: 600,
 					height: 200,
 					renderer: 'line',
-					min: parseFloat(datastream.min_value) - .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
-					max: parseFloat(datastream.max_value) + .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
+					min: parseFloat(lastDatastream.min_value) - .25*(parseFloat(lastDatastream.max_value) - parseFloat(lastDatastream.min_value)),
+					max: parseFloat(lastDatastream.max_value) + .25*(parseFloat(lastDatastream.max_value) - parseFloat(lastDatastream.min_value)),
 					padding: {
 						top: 0.02,
 						right: 0.02,
@@ -203,10 +206,10 @@
 					}
 				});
 
-				$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .slider').prop('id', 'slider-' + feedId + '-' + datastream.id);
+				$('#feed-' + feedId + ' .datastreams .datastream-' + lastDatastream.id + ' .slider').prop('id', 'slider-' + feedId + '-' + lastDatastream.id);
 				var slider = new Rickshaw.Graph.RangeSlider({
        					graph: graph,
-       					element: $('#slider-' + feedId + '-' + datastream.id)
+       					element: $('#slider-' + feedId + '-' + lastDatastream.id)
        				});
 			}
 			$('#loadingData').foundation('reveal', 'close');
