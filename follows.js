@@ -108,6 +108,7 @@
 				//} else {
 				//	$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value);
 				//}
+				
 				$('.datastream-' + dataStreamId).removeClass('hidden');
 
 				
