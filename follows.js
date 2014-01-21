@@ -77,8 +77,39 @@
 						datastreamIds += datastream.id + " ";
 					});
 				}
-				var allSeries = [];
-				var lastDatastream;
+				
+				var dataStreamId = "all";
+				var lastDataStream;
+				
+				// Create Datastream UI
+				$('.datastream-' + dataStreamId).empty();
+				$('.datastream-' + dataStreamId).remove();
+				$('#feed-' + feedId + ' .datastream.hidden').clone().appendTo('#feed-' + feedId + ' .datastreams').addClass('datastream-' + dataStreamId).removeClass('hidden');
+
+				// Check for Datastream Tags
+				var tagsHtml = '';
+				if(datastreamData.tags) {
+					tagsHtml = '<div style="font-size: 14px;"><span class="radius secondary label">' + datastreamData.tags.join('</span> <span class="radius secondary label">') + '</span></div>';
+				} else {
+					tagsHtml = '';
+				}
+
+				// Fill Datastream UI with Data
+				$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-name').html(dataStreamId);
+				$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value);
+
+				// Include Datastream Unit (If Available)
+				if(datastream.unit) {
+					if(datastream.unit.symbol) {
+						$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value + datastream.unit.symbol);
+					} else {
+						$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value);
+					}
+				} else {
+					$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value);
+				}
+				$('.datastream-' + dataStreamId).removeClass('hidden');
+
 				
 				feedData.datastreams.forEach(function(datastream) {
 					
@@ -97,38 +128,10 @@
 						if(datastreamIds && datastreamIds != '' && datastreamIds.indexOf(datastream.id) >= 0) {
 							xively.datastream.history(feedId, datastream.id, {duration: duration, interval: interval, limit: 1000}, function(datastreamData) {
 
-								// var series = [];
+								//var series = [];
 								var points = [];
 
-								// Create Datastream UI
-								$('.datastream-' + datastream.id).empty();
-								$('.datastream-' + datastream.id).remove();
-								$('#feed-' + feedId + ' .datastream.hidden').clone().appendTo('#feed-' + feedId + ' .datastreams').addClass('datastream-' + datastream.id).removeClass('hidden');
-
-								// Check for Datastream Tags
-								var tagsHtml = '';
-								if(datastreamData.tags) {
-									tagsHtml = '<div style="font-size: 14px;"><span class="radius secondary label">' + datastreamData.tags.join('</span> <span class="radius secondary label">') + '</span></div>';
-								} else {
-									tagsHtml = '';
-								}
-
-								// Fill Datastream UI with Data
-								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-name').html(datastream.id);
-								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(datastream.current_value);
-
-								// Include Datastream Unit (If Available)
-								if(datastream.unit) {
-									if(datastream.unit.symbol) {
-										$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(datastream.current_value + datastream.unit.symbol);
-									} else {
-										$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(datastream.current_value);
-									}
-								} else {
-									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(datastream.current_value);
-								}
-								$('.datastream-' + datastream.id).removeClass('hidden');
-
+								
 								// Historical Datapoints
 								if(datastreamData.datapoints) {
 
@@ -146,7 +149,7 @@
 									lastDatastream = datastream;
 
 								} else {
-									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .graphWrapper').addClass('hidden');
+									//$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .graphWrapper').addClass('hidden');
 								}
 							});
 						} else {
@@ -158,11 +161,11 @@
 				});
 				
 				// Initialize Graph DOM Element
-				$('#feed-' + feedId + ' .datastreams .datastream-' + lastDatastream.id + ' .graph').attr('id', 'graph-' + feedId + '-' + lastDatastream.id);
+				$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .graph').attr('id', 'graph-' + feedId + '-' + dataStreamId);
 
 	 			// Build Graph
 				var graph = new Rickshaw.Graph( {
-					element: document.querySelector('#graph-' + feedId + '-' + lastDatastream.id),
+					element: document.querySelector('#graph-' + feedId + '-' + dataStreamId),
 					width: 600,
 					height: 200,
 					renderer: 'line',
@@ -206,10 +209,10 @@
 					}
 				});
 
-				$('#feed-' + feedId + ' .datastreams .datastream-' + lastDatastream.id + ' .slider').prop('id', 'slider-' + feedId + '-' + lastDatastream.id);
+				$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .slider').prop('id', 'slider-' + feedId + '-' + dataStreamId);
 				var slider = new Rickshaw.Graph.RangeSlider({
        					graph: graph,
-       					element: $('#slider-' + feedId + '-' + lastDatastream.id)
+       					element: $('#slider-' + feedId + '-' + dataStreamId)
        				});
 			}
 			$('#loadingData').foundation('reveal', 'close');
