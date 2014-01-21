@@ -96,7 +96,7 @@
 
 				// Fill Datastream UI with Data
 				$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-name').html(dataStreamId);
-				$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value);
+				//$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-value').html(datastream.current_value);
 
 				// Include Datastream Unit (If Available)
 				if(datastream.unit) {
