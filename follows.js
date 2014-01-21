@@ -87,12 +87,12 @@
 				$('#feed-' + feedId + ' .datastream.hidden').clone().appendTo('#feed-' + feedId + ' .datastreams').addClass('datastream-' + dataStreamId).removeClass('hidden');
 
 				// Check for Datastream Tags
-				var tagsHtml = '';
-				if(datastreamData.tags) {
-					tagsHtml = '<div style="font-size: 14px;"><span class="radius secondary label">' + datastreamData.tags.join('</span> <span class="radius secondary label">') + '</span></div>';
-				} else {
-					tagsHtml = '';
-				}
+				// var tagsHtml = '';
+				//if(datastreamData.tags) {
+				//	tagsHtml = '<div style="font-size: 14px;"><span class="radius secondary label">' + datastreamData.tags.join('</span> <span class="radius secondary label">') + '</span></div>';
+				//} else {
+				//	tagsHtml = '';
+				//}
 
 				// Fill Datastream UI with Data
 				$('#feed-' + feedId + ' .datastreams .datastream-' + dataStreamId + ' .datastream-name').html(dataStreamId);
