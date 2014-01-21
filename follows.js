@@ -81,7 +81,6 @@
 				var lastDatastream;
 				
 				feedData.datastreams.forEach(function(datastream) {
-					lastDatastream = datastream;
 					
 					var now = new Date();
 					var then = new Date();
@@ -144,6 +143,7 @@
 										data: points,
 										color: '#' + dataColor
 									});
+									lastDatastream = datastream;
 
 								} else {
 									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .graphWrapper').addClass('hidden');
